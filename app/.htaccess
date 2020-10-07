@@ -1,0 +1,27 @@
+#Абсолютный путь
+#ErrorDocument 404 /Errors/Page404.html 
+
+#Указание кодировки
+AddDefaultCharset UTF-8
+
+#Заголовок управления кешированием страниц
+#Кеширование всех файлов 1 год
+Header set Cache-Control "max-age=31536000, public"
+# One month for image files
+<filesMatch ".(jpg|jpeg|png|gif|webp|ico)$">
+    Header set Cache-Control "max-age=2592000, public"
+</filesMatch>
+# One month for css and js
+<filesMatch ".(css|js)$">
+    Header set Cache-Control "max-age=2592000, public"
+</filesMatch>
+# Задаем 1 день для данного типа файла
+<filesMatch "\.(html|htm|php)$">
+    Header set Cache-Control "max-age=172800, private, must-revalidate"
+</filesMatch>
+
+# сжатие text, html, javascript, css, xml:
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE application/xml application/javascript application/x-javascript text/html text/javascript text/css
+</IfModule>
+
