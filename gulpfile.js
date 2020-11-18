@@ -13,6 +13,7 @@ const concat = require('gulp-concat');
 const terserJS = require('gulp-terser'); // как uglifyES, по рекомендации gulp
 const rename = require('gulp-rename');
 const scss = require('gulp-sass');
+const sourcemaps = require('gulp-sourcemaps');
 const notify = require('gulp-notify');
 const autoprefixer = require('gulp-autoprefixer');
 const cleancss = require('gulp-clean-css');
@@ -50,6 +51,7 @@ function processScripts() {
 */
 function processStyles() {
     return src('app/scss/main-style.scss')
+        .pipe(sourcemaps.init())
         .pipe(scss({
             outputStyle: 'expanded'
         }).on('error', notify.onError()))
@@ -65,6 +67,7 @@ function processStyles() {
         .pipe(rename({
             suffix: "-min",
         }))
+        .pipe(sourcemaps.write())
         .pipe(dest('app/css/min/')) // Выгрузка сжатых стилей для подключения
         .pipe(browserSync.stream())
 }

@@ -85,6 +85,9 @@ a {
         transform: rotate(180deg);
     }
 }
+
+@import 'slider';
+
 .menu {
     padding: 50px 0 58px;
     background: linear-gradient(180deg, #111213 0%, #111213 43.62%, rgba(32, 31, 33, 0) 86.33%);

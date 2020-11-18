@@ -76,6 +76,11 @@ a {
   transform: rotate(180deg);
 }
 
+.slider-inner {
+  height: 150px;
+  background-color: gold;
+}
+
 .menu {
   padding: 50px 0 58px;
   background: -webkit-gradient(linear, left top, left bottom, from(#111213), color-stop(43.62%, #111213), color-stop(86.33%, rgba(32, 31, 33, 0)));
@@ -167,6 +172,12 @@ a {
   -o-transition: top .15s, transform .3s .15s;
   transition: top .15s, transform .3s .15s;
   transition: top .15s, transform .3s .15s, -webkit-transform .3s .15s;
+}
+
+@media screen and (max-width: 991px) {
+  body {
+    background-color: green;
+  }
 }
 
 @media screen and (max-width: 820px) and (max-height: 420px) {
