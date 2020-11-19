@@ -19,6 +19,9 @@ const autoprefixer = require('gulp-autoprefixer');
 const cleancss = require('gulp-clean-css');
 const tinypng = require('gulp-tinypng-compress');
 const newer = require('gulp-newer');
+const webpack = require('webpack');
+const webpackStream = require('webpack-stream');
+const babel = require('gulp-babel');
 // npm list --depth=0 // показать установленные пакеты
 
 function browser_sync() {
@@ -32,16 +35,37 @@ function browser_sync() {
     })
 }
 function processScripts() {
-    return src([
-            'app/js/main-script.js'
-        ])
-        .pipe(concat('main-script-min.js'))
-        // .pipe(rename({
-        //     suffix: "-min",
-        // }))
-        .pipe(terserJS({
-            // toplevel: true //сильное сжатие, замена имён функций, методов и тд
+    return src('app/js/main-script.js')
+        .pipe(webpackStream({
+            mode: 'production',
+            optimization: {
+                minimize: false // включает/выключает сжатие кода
+            },
+            output: {
+                filename: 'main-script.js',
+            },
+            module: {
+                rules: [{
+                    test: /\.m?js$/,
+                    exclude: /(node_modules|bower_components)/,
+                    use: {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/preset-env']
+                        }
+                    }
+                }]
+            }
+            
         }))
+        // .pipe(sourcemaps.init())
+        .pipe(rename({
+            suffix: "-min",
+        }))
+        // .pipe(sourcemaps.write('.'))
+        // .pipe(terserJS({
+        //     // toplevel: true //сильное сжатие, замена имён функций, методов и тд
+        // }))
         .pipe(dest('app/js/min/'))
         .pipe(browserSync.stream())
 }
