@@ -67,7 +67,7 @@ function processStyles() {
         .pipe(rename({
             suffix: "-min",
         }))
-        .pipe(sourcemaps.write())
+        .pipe(sourcemaps.write('.'))
         .pipe(dest('app/css/min/')) // Выгрузка сжатых стилей для подключения
         .pipe(browserSync.stream())
 }
