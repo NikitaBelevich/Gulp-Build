@@ -148,8 +148,8 @@ function buildCopy() {
     return src([
         'app/**', // Копируем всё кроме...
         '!./app/scss/**', // scss
-        '!./app/img/not-optimized/**' // не сжатой графики
-
+        '!./app/img/not-optimized/**', // не сжатой графики
+        '!./app/{css,js}/**/*.map' // map файлов из папок js и css
     ], {base: 'app'})
     .pipe(dest('dist/'))
 }
